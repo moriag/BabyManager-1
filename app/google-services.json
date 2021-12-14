@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "675878191451",
+    "project_id": "babymanger-7a23d",
+    "storage_bucket": "babymanger-7a23d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:675878191451:android:573ce352f9a33e776c1a7e",
+        "android_client_info": {
+          "package_name": "com.example.proj"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "675878191451-pe2r1tlg930bkdeupijdqj46dqs92mu2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvtS8rhxLdO_0D1CR7E-0QT874f33sqYA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "675878191451-pe2r1tlg930bkdeupijdqj46dqs92mu2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
