@@ -35,11 +35,11 @@ public class GroupActivity extends AppCompatActivity {
     public void create(View v) {
 
         EditText group = (EditText) findViewById(R.id.group_name);
+        EditText name = (EditText) findViewById(R.id.name);
         EditText email = (EditText) findViewById(R.id.email);
         EditText password = (EditText) findViewById(R.id.password);
         FirebaseDatabase fdb = FirebaseDatabase.getInstance();
         DatabaseReference dbr = fdb.getReference("Groups");
-        //dbr.setValue(group.getText().toString());
 
         db.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -47,15 +47,18 @@ public class GroupActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful())
                         {
+                            dbr.child(group.getText().toString()).child("Staff").child(db.getUid().toString()).setValue(new Staff(name.getText().toString()));
+                            //Toast.makeText(GroupActivity.this, db.getUid().toString(), Toast.LENGTH_LONG).show();
                             db.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                                     .addOnCompleteListener(GroupActivity.this, new OnCompleteListener<AuthResult>() {
                                         @Override
                                         public void onComplete(@NonNull Task<AuthResult> task) {
                                             if (task.isSuccessful())
                                             {
-                                                FirebaseUser user = db.getCurrentUser();
-                                                dbr.child(group.getText().toString()).child("Staff").child(user.getUid().toString()).setValue(new Staff("Natasha"));
-                                                Intent i = new Intent(GroupActivity.this, ParentActivity.class);
+                                                //FirebaseUser user = db.getCurrentUser();
+                                                //dbr.child(group.getText().toString()).child("Staff").child(user.getUid().toString()).setValue(new Staff(name.getText().toString()));
+                                                Intent i = new Intent(GroupActivity.this, StaffActivity.class);
+                                                i.putExtra("group", group.getText().toString());
                                                 startActivity(i);
                                             }
                                             else

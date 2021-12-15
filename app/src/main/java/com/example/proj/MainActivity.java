@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 
@@ -35,12 +37,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = db.getCurrentUser();
         if(currentUser != null)
         {
-            Intent i = new Intent(this, ParentActivity.class);
-            startActivity(i);
+            db.signOut();
+            /*Intent i = new Intent(this, ParentActivity.class);
+            startActivity(i);*/
         }
     }
 
@@ -53,33 +55,26 @@ public class MainActivity extends AppCompatActivity {
 
     public void log_in(View v) {
 
+
         EditText em = findViewById(R.id.editTextTextEmailAddress);
         EditText pw = findViewById(R.id.editTextTextPassword);
-        CheckBox p = findViewById(R.id.checkParent);
-        CheckBox s = findViewById(R.id.checkStaff);
+        EditText gr = findViewById(R.id.group);
+
+        Switch p = findViewById(R.id.isParent);
+        Switch s = findViewById(R.id.isStaff);
+
+        String group = gr.getText().toString();
         String email = em.getText().toString();
         String password = pw.getText().toString();
+
         boolean parent = p.isChecked();
         boolean staff = s.isChecked();
 
-        db.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful())
-                        {
-                            FirebaseUser user = db.getCurrentUser();
-                            Intent i = new Intent(MainActivity.this, ParentActivity.class);
-                            startActivity(i);
-                        }
-                        else
-                        {
-                            Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
+        FirebaseDatabase fdb = FirebaseDatabase.getInstance();
+        DatabaseReference ref = fdb.getReference("Groups");
 
-        /*if(!parent && !staff)
+
+        if(!parent && !staff)
         {
             Toast.makeText(this, "Must check one of the options!", Toast.LENGTH_LONG).show();
             return;
@@ -91,16 +86,30 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Can't check both options!", Toast.LENGTH_LONG).show();
             return;
         }
-        if(parent)
-        {
-            Intent i = new Intent(this, ParentActivity.class);
-            startActivity(i);
-        }
-        if(staff)
-        {
-            Intent i = new Intent(this, StaffActivity.class);
-            startActivity(i);
-        }*/
+
+
+        db.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful())
+                        {
+                            Intent i = new Intent(MainActivity.this, StaffActivity.class);
+                            if(parent)
+                            {
+                                i = new Intent(MainActivity.this, ParentActivity.class);
+                            }
+                            i.putExtra("group", group);
+                            startActivity(i);
+                        }
+                        else
+                        {
+                            Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+
 
     }
 

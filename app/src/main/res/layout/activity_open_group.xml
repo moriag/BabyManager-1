@@ -22,29 +22,28 @@
         android:id="@+id/password"
         android:layout_width="277dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="160dp"
+        android:layout_marginBottom="116dp"
         android:ems="10"
         android:hint="Enter Password"
         android:inputType="numberPassword"
         app:layout_constraintBottom_toTopOf="@+id/open"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.517"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/group_name"
         android:layout_width="278dp"
         android:layout_height="47dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginTop="44dp"
         android:ems="10"
         android:hint="Group Name"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/email"
+        app:layout_constraintBottom_toTopOf="@+id/name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.887" />
+        app:layout_constraintVertical_bias="0.51" />
 
     <EditText
         android:id="@+id/email"
@@ -55,6 +54,18 @@
         android:hint="Enter Email"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="279dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="20dp"
+        android:ems="10"
+        android:hint="First Nme"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

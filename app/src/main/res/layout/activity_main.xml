@@ -18,10 +18,10 @@
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintHorizontal_bias="0.469"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress"
-        app:layout_constraintVertical_bias="0.216" />
+        app:layout_constraintVertical_bias="0.009" />
 
     <EditText
         android:id="@+id/editTextTextEmailAddress"
@@ -68,35 +68,50 @@
         android:layout_width="107dp"
         android:layout_height="51dp"
         android:layout_marginTop="56dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginEnd="24dp"
         android:onClick="log_in"
         android:text="LOG IN"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword"
-        app:layout_constraintVertical_bias="0.05" />
+        app:layout_constraintVertical_bias="0.0" />
 
-    <CheckBox
-        android:id="@+id/checkParent"
-        android:layout_width="113dp"
-        android:layout_height="44dp"
-        android:text="PARENT"
-        app:layout_constraintBottom_toTopOf="@+id/checkStaff"
-        app:layout_constraintEnd_toStartOf="@+id/parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
-
-    <CheckBox
-        android:id="@+id/checkStaff"
-        android:layout_width="114dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="76dp"
-        android:text="STAFF"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <EditText
+        android:id="@+id/group"
+        android:layout_width="297dp"
+        android:layout_height="43dp"
+        android:ems="10"
+        android:hint="Group"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/editTextTextEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.658" />
+
+    <Switch
+        android:id="@+id/isParent"
+        android:layout_width="123dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="56dp"
+        android:text="PARENT"
+        app:layout_constraintBottom_toTopOf="@+id/isStaff"
+        app:layout_constraintEnd_toStartOf="@+id/parent"
         app:layout_constraintHorizontal_bias="0.276"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword"
-        app:layout_constraintVertical_bias="0.029" />
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Switch
+        android:id="@+id/isStaff"
+        android:layout_width="123dp"
+        android:layout_height="24dp"
+        android:layout_marginBottom="276dp"
+        android:text="STAFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.149"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
