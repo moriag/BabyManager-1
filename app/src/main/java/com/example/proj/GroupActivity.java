@@ -47,16 +47,13 @@ public class GroupActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful())
                         {
-                            dbr.child(group.getText().toString()).child("Staff").child(db.getUid().toString()).setValue(new Staff(name.getText().toString()));
-                            //Toast.makeText(GroupActivity.this, db.getUid().toString(), Toast.LENGTH_LONG).show();
+                            dbr.child(group.getText().toString()).child("staff").child(db.getUid().toString()).setValue(new Staff(name.getText().toString()));
                             db.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                                     .addOnCompleteListener(GroupActivity.this, new OnCompleteListener<AuthResult>() {
                                         @Override
                                         public void onComplete(@NonNull Task<AuthResult> task) {
                                             if (task.isSuccessful())
                                             {
-                                                //FirebaseUser user = db.getCurrentUser();
-                                                //dbr.child(group.getText().toString()).child("Staff").child(user.getUid().toString()).setValue(new Staff(name.getText().toString()));
                                                 Intent i = new Intent(GroupActivity.this, StaffActivity.class);
                                                 i.putExtra("group", group.getText().toString());
                                                 startActivity(i);

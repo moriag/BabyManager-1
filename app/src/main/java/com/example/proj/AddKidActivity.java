@@ -50,10 +50,13 @@ public class AddKidActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful())
                         {
-                            dbr.child(group).child("Parent").child(db.getUid().toString()).child("Name").setValue(p_name.getText().toString());
-                            dbr.child(group).child("Parent").child(db.getUid().toString()).child("Kid-id").setValue(id);
-                            dbr.child(group).child("Kid").child(id+"").child("Name").setValue(k_name.getText().toString());
-                            dbr.child(group).child("Kid").child(id+"").child("Remark").setValue(remark.getText().toString());
+                            dbr.child(group).child("parent").child(db.getUid().toString()).child("name").setValue(p_name.getText().toString());
+                            dbr.child(group).child("parent").child(db.getUid().toString()).child("Kid-id").setValue(id);
+                            dbr.child(group).child("Kid").child(id+"").child("name").setValue(k_name.getText().toString());
+                            dbr.child(group).child("Kid").child(id+"").child("remark").setValue(remark.getText().toString());
+                            dbr.child(group).child("Kid").child(id+"").child("diapers").setValue(true);
+                            dbr.child(group).child("Kid").child(id+"").child("food").setValue(true);
+                            dbr.child(group).child("Kid").child(id+"").child("clothes").setValue(true);
                             Intent i = new Intent(AddKidActivity.this, StaffActivity.class);
                             startActivity(i);
                         }

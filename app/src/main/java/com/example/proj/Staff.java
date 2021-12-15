@@ -39,12 +39,6 @@ public class Staff {
 
     }
 
-    public int addKid() {
 
-
-        kids.add(id++);
-        return 4;
-
-    }
 
 }

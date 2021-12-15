@@ -41,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
         if(currentUser != null)
         {
             db.signOut();
-            /*Intent i = new Intent(this, ParentActivity.class);
-            startActivity(i);*/
         }
     }
 
