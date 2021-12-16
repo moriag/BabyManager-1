@@ -9,33 +9,18 @@
     tools:context=".MainActivity">
 
     <EditText
-        android:id="@+id/editTextTextPassword"
-        android:layout_width="296dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.469"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress"
-        app:layout_constraintVertical_bias="0.009" />
-
-    <EditText
         android:id="@+id/editTextTextEmailAddress"
         android:layout_width="299dp"
         android:layout_height="43dp"
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/editTextNumberPassword3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.301" />
+        app:layout_constraintVertical_bias="0.861" />
 
     <Button
         android:id="@+id/button"
@@ -48,7 +33,7 @@
         app:layout_constraintHorizontal_bias="0.949"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
+        app:layout_constraintVertical_bias="0.961" />
 
     <TextView
         android:id="@+id/textView"
@@ -61,57 +46,33 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.129" />
+        app:layout_constraintVertical_bias="0.242" />
 
     <Button
         android:id="@+id/parent"
         android:layout_width="107dp"
         android:layout_height="51dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="368dp"
         android:onClick="log_in"
         android:text="LOG IN"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.194"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNumberPassword3"
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
-        android:id="@+id/group"
-        android:layout_width="297dp"
-        android:layout_height="43dp"
+        android:id="@+id/editTextNumberPassword3"
+        android:layout_width="300dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="448dp"
         android:ems="10"
-        android:hint="Group"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextEmailAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.658" />
-
-    <Switch
-        android:id="@+id/isParent"
-        android:layout_width="123dp"
-        android:layout_height="26dp"
-        android:layout_marginTop="56dp"
-        android:text="PARENT"
-        app:layout_constraintBottom_toTopOf="@+id/isStaff"
-        app:layout_constraintEnd_toStartOf="@+id/parent"
-        app:layout_constraintHorizontal_bias="0.276"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Switch
-        android:id="@+id/isStaff"
-        android:layout_width="123dp"
-        android:layout_height="24dp"
-        android:layout_marginBottom="276dp"
-        android:text="STAFF"
+        android:hint="Password"
+        android:inputType="numberPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.149"
+        app:layout_constraintHorizontal_bias="0.522"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

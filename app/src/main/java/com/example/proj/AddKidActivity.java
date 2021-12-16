@@ -21,6 +21,7 @@ public class AddKidActivity extends AppCompatActivity {
 
     private int id;
     private String group;
+    private String staff_id;
     private FirebaseAuth db;
 
     @Override
@@ -29,34 +30,56 @@ public class AddKidActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_kid);
         Intent intent = getIntent();
         id = Integer.parseInt(intent.getStringExtra("id"));
-        group = intent.getStringExtra("group");
+        staff_id = intent.getStringExtra("staff_id");
         db = FirebaseAuth.getInstance();
     }
 
     public void sign_up(View v) {
 
-        EditText email = findViewById(R.id.text_view_email);
-        EditText pass = findViewById(R.id.text_view_pass);
-        EditText p_name = findViewById(R.id.text_view_p_name);
-        EditText k_name = findViewById(R.id.text_view_k_name);
-        EditText remark = findViewById(R.id.text_view_remark);
+        EditText email_p1 = (EditText)findViewById(R.id.editTextTextEmailAddress2);
+        EditText pass_p1 = (EditText)findViewById(R.id.editTextNumberPassword);
+        EditText name_p1 = (EditText)findViewById(R.id.editTextTextPersonName);
+        EditText email_p2 = (EditText)findViewById(R.id.editTextTextEmailAddress3);
+        EditText pass_p2 = (EditText)findViewById(R.id.editTextNumberPassword2);
+        EditText name_p2 = (EditText)findViewById(R.id.editTextTextPersonName2);
+        EditText name_k = (EditText)findViewById(R.id.editTextTextPersonName3);
+        EditText remark = (EditText)findViewById(R.id.editTextTextPersonName4);
 
         FirebaseDatabase fdb = FirebaseDatabase.getInstance();
-        DatabaseReference dbr = fdb.getReference("Groups");
+        DatabaseReference ref = fdb.getReference("Staff");
+        ref.child(staff_id).child("Kids").setValue(id);
 
-        db.createUserWithEmailAndPassword(email.getText().toString(), pass.getText().toString())
+        db.createUserWithEmailAndPassword(email_p1.getText().toString(), pass_p1.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful())
                         {
-                            dbr.child(group).child("parent").child(db.getUid().toString()).child("name").setValue(p_name.getText().toString());
-                            dbr.child(group).child("parent").child(db.getUid().toString()).child("Kid-id").setValue(id);
-                            dbr.child(group).child("Kid").child(id+"").child("name").setValue(k_name.getText().toString());
-                            dbr.child(group).child("Kid").child(id+"").child("remark").setValue(remark.getText().toString());
-                            dbr.child(group).child("Kid").child(id+"").child("diapers").setValue(true);
-                            dbr.child(group).child("Kid").child(id+"").child("food").setValue(true);
-                            dbr.child(group).child("Kid").child(id+"").child("clothes").setValue(true);
+                            DatabaseReference ref = fdb.getReference("Parent");
+                            ref.child(db.getUid()).child("Kids").child(id + "").child("name").setValue(name_k.getText().toString());
+                            ref.child(db.getUid()).child("Kids").child(id + "").child("remark").setValue(remark.getText().toString());
+                            ref.child(db.getUid()).child("Kids").child(id + "").child("Inventory").child("diapers").setValue(true);
+                            ref.child(db.getUid()).child("Kids").child(id + "").child("Inventory").child("food").setValue(true);
+                            ref.child(db.getUid()).child("Kids").child(id + "").child("Inventory").child("clothes").setValue(true);
+                        }
+                        else
+                        {
+                            Toast.makeText(AddKidActivity.this,"Failed!", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+        db.createUserWithEmailAndPassword(email_p2.getText().toString(), pass_p2.getText().toString())
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful())
+                        {
+                            DatabaseReference ref = fdb.getReference("Parent");
+                            ref.child(db.getUid()).child("Kids").child(id + "").child("name").setValue(name_k.getText().toString());
+                            ref.child(db.getUid()).child("Kids").child(id + "").child("remark").setValue(remark.getText().toString());
+                            ref.child(db.getUid()).child("Kids").child(id + "").child("Inventory").child("diapers").setValue(true);
+                            ref.child(db.getUid()).child("Kids").child(id + "").child("Inventory").child("food").setValue(true);
+                            ref.child(db.getUid()).child("Kids").child(id + "").child("Inventory").child("clothes").setValue(true);
                             Intent i = new Intent(AddKidActivity.this, StaffActivity.class);
                             startActivity(i);
                         }

@@ -34,12 +34,12 @@ public class GroupActivity extends AppCompatActivity {
 
     public void create(View v) {
 
-        EditText group = (EditText) findViewById(R.id.group_name);
+
         EditText name = (EditText) findViewById(R.id.name);
         EditText email = (EditText) findViewById(R.id.email);
         EditText password = (EditText) findViewById(R.id.password);
         FirebaseDatabase fdb = FirebaseDatabase.getInstance();
-        DatabaseReference dbr = fdb.getReference("Groups");
+        DatabaseReference dbr = fdb.getReference("Staff");
 
         db.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -47,7 +47,7 @@ public class GroupActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful())
                         {
-                            dbr.child(group.getText().toString()).child("staff").child(db.getUid().toString()).setValue(new Staff(name.getText().toString()));
+                            dbr.child(db.getUid().toString()).setValue(new Staff(name.getText().toString()));
                             db.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                                     .addOnCompleteListener(GroupActivity.this, new OnCompleteListener<AuthResult>() {
                                         @Override
@@ -55,7 +55,6 @@ public class GroupActivity extends AppCompatActivity {
                                             if (task.isSuccessful())
                                             {
                                                 Intent i = new Intent(GroupActivity.this, StaffActivity.class);
-                                                i.putExtra("group", group.getText().toString());
                                                 startActivity(i);
                                             }
                                             else

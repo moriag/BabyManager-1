@@ -13,43 +13,29 @@
         android:text="Open Group"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.831"
+        app:layout_constraintHorizontal_bias="0.849"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.647" />
+        app:layout_constraintVertical_bias="0.696" />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="277dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="116dp"
+        android:layout_marginBottom="176dp"
         android:ems="10"
         android:hint="Enter Password"
         android:inputType="numberPassword"
         app:layout_constraintBottom_toTopOf="@+id/open"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.485"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/group_name"
-        android:layout_width="278dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="44dp"
-        android:ems="10"
-        android:hint="Group Name"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.51" />
 
     <EditText
         android:id="@+id/email"
         android:layout_width="277dp"
         android:layout_height="45dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="44dp"
         android:ems="10"
         android:hint="Enter Email"
         android:inputType="textEmailAddress"
@@ -61,12 +47,13 @@
         android:id="@+id/name"
         android:layout_width="279dp"
         android:layout_height="45dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="44dp"
         android:ems="10"
-        android:hint="First Nme"
+        android:hint="First Name"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/email"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

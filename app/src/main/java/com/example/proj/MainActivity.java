@@ -19,8 +19,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -55,36 +58,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         EditText em = findViewById(R.id.editTextTextEmailAddress);
-        EditText pw = findViewById(R.id.editTextTextPassword);
-        EditText gr = findViewById(R.id.group);
+        EditText pw = findViewById(R.id.editTextNumberPassword3);
 
-        Switch p = findViewById(R.id.isParent);
-        Switch s = findViewById(R.id.isStaff);
 
-        String group = gr.getText().toString();
         String email = em.getText().toString();
         String password = pw.getText().toString();
 
-        boolean parent = p.isChecked();
-        boolean staff = s.isChecked();
-
         FirebaseDatabase fdb = FirebaseDatabase.getInstance();
-        DatabaseReference ref = fdb.getReference("Groups");
-
-
-        if(!parent && !staff)
-        {
-            Toast.makeText(this, "Must check one of the options!", Toast.LENGTH_LONG).show();
-            return;
-        }
-        if(parent && staff)
-        {
-            p.setChecked(false);
-            s.setChecked(false);
-            Toast.makeText(this, "Can't check both options!", Toast.LENGTH_LONG).show();
-            return;
-        }
-
+        DatabaseReference ref = fdb.getReference("Parent");
 
         db.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -92,13 +73,35 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful())
                         {
-                            Intent i = new Intent(MainActivity.this, StaffActivity.class);
-                            if(parent)
-                            {
-                                i = new Intent(MainActivity.this, ParentActivity.class);
-                            }
-                            i.putExtra("group", group);
-                            startActivity(i);
+                            ref.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    boolean staff = true;
+                                    for(DataSnapshot snap : snapshot.getChildren())
+                                    {
+                                        //Toast.makeText(MainActivity.this, db.getUid(), Toast.LENGTH_LONG).show();
+                                        if(db.getUid().equals(snap.getKey()))
+                                        {
+                                            Intent i = new Intent(MainActivity.this, ParentActivity.class);
+                                            startActivity(i);
+                                            staff = false;
+                                            break;
+                                        }
+                                    }
+                                    if(staff)
+                                    {
+                                        Intent i = new Intent(MainActivity.this, StaffActivity.class);
+                                        startActivity(i);
+                                    }
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+
                         }
                         else
                         {
