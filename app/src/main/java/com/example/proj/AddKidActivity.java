@@ -47,7 +47,11 @@ public class AddKidActivity extends AppCompatActivity {
 
         FirebaseDatabase fdb = FirebaseDatabase.getInstance();
         DatabaseReference ref = fdb.getReference("Staff");
-        ref.child(staff_id).child("Kids").setValue(id);
+        ref.child(staff_id).child("Kids").child(id + "").child("Inventory").child("diapers").setValue(true);
+        ref.child(staff_id).child("Kids").child(id + "").child("Inventory").child("clothes").setValue(true);
+        ref.child(staff_id).child("Kids").child(id + "").child("Inventory").child("food").setValue(true);
+        ref.child(staff_id).child("Kids").child(id + "").child("Remark").setValue(remark.getText().toString());
+        ref.child(staff_id).child("Kids").child(id + "").child("Name").setValue(name_k.getText().toString());
 
         db.createUserWithEmailAndPassword(email_p1.getText().toString(), pass_p1.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -56,11 +60,7 @@ public class AddKidActivity extends AppCompatActivity {
                         if(task.isSuccessful())
                         {
                             DatabaseReference ref = fdb.getReference("Parent");
-                            ref.child(db.getUid()).child("Kids").child(id + "").child("name").setValue(name_k.getText().toString());
-                            ref.child(db.getUid()).child("Kids").child(id + "").child("remark").setValue(remark.getText().toString());
-                            ref.child(db.getUid()).child("Kids").child(id + "").child("Inventory").child("diapers").setValue(true);
-                            ref.child(db.getUid()).child("Kids").child(id + "").child("Inventory").child("food").setValue(true);
-                            ref.child(db.getUid()).child("Kids").child(id + "").child("Inventory").child("clothes").setValue(true);
+                            ref.child(db.getUid()).child("Kids").child(id + "").child("staff").setValue(staff_id);
                         }
                         else
                         {
@@ -75,11 +75,7 @@ public class AddKidActivity extends AppCompatActivity {
                         if(task.isSuccessful())
                         {
                             DatabaseReference ref = fdb.getReference("Parent");
-                            ref.child(db.getUid()).child("Kids").child(id + "").child("name").setValue(name_k.getText().toString());
-                            ref.child(db.getUid()).child("Kids").child(id + "").child("remark").setValue(remark.getText().toString());
-                            ref.child(db.getUid()).child("Kids").child(id + "").child("Inventory").child("diapers").setValue(true);
-                            ref.child(db.getUid()).child("Kids").child(id + "").child("Inventory").child("food").setValue(true);
-                            ref.child(db.getUid()).child("Kids").child(id + "").child("Inventory").child("clothes").setValue(true);
+                            ref.child(db.getUid()).child("Kids").child(id + "").child("staff").setValue(staff_id);
                             Intent i = new Intent(AddKidActivity.this, StaffActivity.class);
                             startActivity(i);
                         }
