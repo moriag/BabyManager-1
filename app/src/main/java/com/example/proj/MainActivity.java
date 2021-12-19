@@ -28,22 +28,22 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FirebaseAuth db;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        db = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        FirebaseUser currentUser = db.getCurrentUser();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if(currentUser != null)
         {
-            db.signOut();
+            firebaseAuth.signOut();
         }
     }
 
@@ -60,55 +60,31 @@ public class MainActivity extends AppCompatActivity {
         EditText em = findViewById(R.id.editTextTextEmailAddress);
         EditText pw = findViewById(R.id.editTextNumberPassword3);
 
-
         String email = em.getText().toString();
         String password = pw.getText().toString();
+        Log.d("START","starting");
 
-        FirebaseDatabase fdb = FirebaseDatabase.getInstance();
-        DatabaseReference ref = fdb.getReference("Parent");
+        Activity act=new Activity();
+        act.startActivity(email, password, new CallBack() {
+            @Override
+            public void run() {
+                Intent intent;
+                if(Activity.user.getUserType().equals("Parent"))
+                    intent = new Intent(MainActivity.this, ParentActivity.class);
+                else
+                    intent = new Intent(MainActivity.this, StaffActivity.class);
+                Log.d("End","ending");
+                Log.d("UserType",Activity.user.getUserType());
+                Log.d("KIDS",Activity.user.getKids().toString());
+                startActivity(intent);
+            }
 
-        db.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful())
-                        {
-                            ref.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    boolean staff = true;
-                                    for(DataSnapshot snap : snapshot.getChildren())
-                                    {
-                                        //Toast.makeText(MainActivity.this, db.getUid(), Toast.LENGTH_LONG).show();
-                                        if(db.getUid().equals(snap.getKey()))
-                                        {
-                                            Intent i = new Intent(MainActivity.this, ParentActivity.class);
-                                            startActivity(i);
-                                            staff = false;
-                                            break;
-                                        }
-                                    }
-                                    if(staff)
-                                    {
-                                        Intent i = new Intent(MainActivity.this, StaffActivity.class);
-                                        startActivity(i);
-                                    }
+            @Override
+            public void fail(String error) {
+                Toast.makeText(MainActivity.this, error, Toast.LENGTH_LONG).show();
+            }
+        });
 
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                }
-                            });
-
-                        }
-                        else
-                        {
-                            Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
 
 
 
