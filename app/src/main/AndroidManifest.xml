@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Proj">
         <activity
+            android:name=".kidsList"
+            android:exported="false" />
+        <activity
             android:name=".AddKidActivity"
             android:exported="false" />
         <activity

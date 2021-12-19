@@ -4,14 +4,13 @@ public class Kid {
 
     String name;
     String remark;
+    boolean attendance;
     boolean diapers;
     boolean food;
     boolean clothes;
 
 
-    public Kid() {
-
-    }
+    public Kid() {}
 
 
     public String getName() {
@@ -29,7 +28,6 @@ public class Kid {
     public void setRemark(String remark) {
         this.remark = remark;
     }
-
     public boolean isDiapers() {
         return diapers;
     }
@@ -54,10 +52,10 @@ public class Kid {
         this.clothes = clothes;
     }
 
-    public String toString() {
+    public void setAttendance(boolean attendance) { this.attendance = attendance; }
 
-        return getName() + " " + getRemark();
+    public boolean isAttendance() { return this.attendance; }
 
-    }
+
 
 }

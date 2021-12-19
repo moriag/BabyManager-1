@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.util.AndroidException;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -14,23 +16,29 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class AddKidActivity extends AppCompatActivity {
 
     private int id;
-    private String group;
     private String staff_id;
     private FirebaseAuth db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_kid);
         Intent intent = getIntent();
-        id = Integer.parseInt(intent.getStringExtra("id"));
         staff_id = intent.getStringExtra("staff_id");
+        id = Integer.parseInt(intent.getStringExtra("id"));
         db = FirebaseAuth.getInstance();
     }
 
@@ -47,11 +55,13 @@ public class AddKidActivity extends AppCompatActivity {
 
         FirebaseDatabase fdb = FirebaseDatabase.getInstance();
         DatabaseReference ref = fdb.getReference("Staff");
-        ref.child(staff_id).child("Kids").child(id + "").child("Inventory").child("diapers").setValue(true);
-        ref.child(staff_id).child("Kids").child(id + "").child("Inventory").child("clothes").setValue(true);
-        ref.child(staff_id).child("Kids").child(id + "").child("Inventory").child("food").setValue(true);
-        ref.child(staff_id).child("Kids").child(id + "").child("Remark").setValue(remark.getText().toString());
-        ref.child(staff_id).child("Kids").child(id + "").child("Name").setValue(name_k.getText().toString());
+        ref.child(staff_id).child("kids").child(id + "").child("diapers").setValue(true);
+        ref.child(staff_id).child("kids").child(id + "").child("clothes").setValue(true);
+        ref.child(staff_id).child("kids").child(id + "").child("food").setValue(true);
+        ref.child(staff_id).child("kids").child(id + "").child("remark").setValue(remark.getText().toString());
+        ref.child(staff_id).child("kids").child(id + "").child("attendance").setValue(true);
+        ref.child(staff_id).child("kids").child(id + "").child("name").setValue(name_k.getText().toString());
+
 
         db.createUserWithEmailAndPassword(email_p1.getText().toString(), pass_p1.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -60,14 +70,16 @@ public class AddKidActivity extends AppCompatActivity {
                         if(task.isSuccessful())
                         {
                             DatabaseReference ref = fdb.getReference("Parent");
-                            ref.child(db.getUid()).child("Kids").child(id + "").child("staff").setValue(staff_id);
+                            ref.child(db.getUid()).child("kids").child(id + "").setValue(staff_id);
+                            ref.child(db.getUid()).child("name").setValue(name_p1.getText().toString());
                         }
                         else
                         {
-                            Toast.makeText(AddKidActivity.this,"Failed!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(AddKidActivity.this,"Failed(1111111)!", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
+
         db.createUserWithEmailAndPassword(email_p2.getText().toString(), pass_p2.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -75,17 +87,23 @@ public class AddKidActivity extends AppCompatActivity {
                         if(task.isSuccessful())
                         {
                             DatabaseReference ref = fdb.getReference("Parent");
-                            ref.child(db.getUid()).child("Kids").child(id + "").child("staff").setValue(staff_id);
+                            ref.child(db.getUid()).child("kids").child(id + "").setValue(staff_id);
+                            ref.child(db.getUid()).child("name").setValue(name_p2.getText().toString());
+                            FirebaseUser user = db.getCurrentUser();
                             Intent i = new Intent(AddKidActivity.this, StaffActivity.class);
+                            i.putExtra("sign", "t");
+                            i.putExtra("staff", staff_id + "");
                             startActivity(i);
                         }
                         else
                         {
-                            Toast.makeText(AddKidActivity.this,"Failed!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(AddKidActivity.this,"Failed(222222)!", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
 
+
     }
+
 
 }

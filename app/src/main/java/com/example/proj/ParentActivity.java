@@ -7,6 +7,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -14,90 +16,86 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class ParentActivity extends AppCompatActivity {
 
     private FirebaseAuth db;
-    private String group;
+
+    RecyclerView rv;
+    myAdapter adapter;
+    ArrayList<Kid> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parent);
         db = FirebaseAuth.getInstance();
-        Intent intent = getIntent();
-        group = intent.getStringExtra("group");
 
-        /*FirebaseDatabase dbd = FirebaseDatabase.getInstance();
+        rv = findViewById(R.id.kid_list1);
+        rv.setHasFixedSize(true);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        list = new ArrayList<Kid>();
+        adapter = new myAdapter(this, list);
+        rv.setAdapter(adapter);
 
-        DatabaseReference ref = dbd.getReference("Groups");
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                boolean exist = false;
-                for(DataSnapshot GroupSnap : snapshot.getChildren())
-                {
-                    if(GroupSnap.getKey() == group)
-                    {
-                        exist = true;
-                    }
-                }
-                if(!exist)
-                {
-                    Intent i = new Intent(ParentActivity.this, MainActivity.class);
-                    db.signOut();
-                    Toast.makeText(ParentActivity.this, "WRONG GROUP OR USER TYPE!", Toast.LENGTH_LONG).show();
-                    startActivity(i);
-                    finish();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        ref = dbd.getReference("Groups/" + group + "/parent");
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                boolean exist = false;
-                for(DataSnapshot ParentSnap : snapshot.getChildren())
-                {
-                    if(ParentSnap.getKey() == db.getUid())
-                    {
-                        exist = true;
-                    }
-                }
-                if(!exist)
-                {
-                    Intent i = new Intent(ParentActivity.this, MainActivity.class);
-                    db.signOut();
-                    Toast.makeText(ParentActivity.this, "WRONG GROUP OR USER TYPE!", Toast.LENGTH_LONG).show();
-                    startActivity(i);
-                    finish();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });*/
-
+        show();
 
     }
 
+    public void show() {
 
+        FirebaseDatabase dbd = FirebaseDatabase.getInstance();
+        DatabaseReference ref = dbd.getReference("Parent/" +  db.getUid() + "/kids");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for(DataSnapshot kidSnap : snapshot.getChildren())
+                {
+                    String staff = kidSnap.getValue(String.class);
+                    String k_id = kidSnap.getKey();
+                    DatabaseReference r = dbd.getReference("Staff/" +  staff + "/kids");
+                    r.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for(DataSnapshot snap: snapshot.getChildren())
+                            {
+                                if(snap.getKey().equals(k_id))
+                                {
+                                    Kid k = snap.getValue(Kid.class);
+                                    list.add(k);
+                                }
+                            }
+                            adapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(ParentActivity.this, "errrroooorrrrr!", Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ParentActivity.this, "Faillllll!!!!", Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
 
     public void sign_out(View v) {
 
         db.signOut();
         startActivity(new Intent(this, MainActivity.class));
         finish();
-
 
     }
 

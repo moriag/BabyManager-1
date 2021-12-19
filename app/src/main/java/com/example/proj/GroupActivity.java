@@ -19,6 +19,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class GroupActivity extends AppCompatActivity {
 
@@ -31,9 +34,7 @@ public class GroupActivity extends AppCompatActivity {
         db = FirebaseAuth.getInstance();
     }
 
-
     public void create(View v) {
-
 
         EditText name = (EditText) findViewById(R.id.name);
         EditText email = (EditText) findViewById(R.id.email);
@@ -47,7 +48,8 @@ public class GroupActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful())
                         {
-                            dbr.child(db.getUid().toString()).setValue(new Staff(name.getText().toString()));
+                            Staff s = new Staff(name.getText().toString());
+                            dbr.child(db.getUid().toString()).setValue(s);
                             db.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                                     .addOnCompleteListener(GroupActivity.this, new OnCompleteListener<AuthResult>() {
                                         @Override
