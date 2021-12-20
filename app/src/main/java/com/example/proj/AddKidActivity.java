@@ -30,6 +30,7 @@ public class AddKidActivity extends AppCompatActivity {
     private int id;
     private String staff_id;
     private FirebaseAuth db;
+    FirebaseUser user;
 
 
     @Override
@@ -40,7 +41,9 @@ public class AddKidActivity extends AppCompatActivity {
         staff_id = intent.getStringExtra("staff_id");
         id = Integer.parseInt(intent.getStringExtra("id"));
         db = FirebaseAuth.getInstance();
+        user = db.getCurrentUser();
     }
+
 
     public void sign_up(View v) {
 
@@ -89,10 +92,11 @@ public class AddKidActivity extends AppCompatActivity {
                             DatabaseReference ref = fdb.getReference("Parent");
                             ref.child(db.getUid()).child("kids").child(id + "").setValue(staff_id);
                             ref.child(db.getUid()).child("name").setValue(name_p2.getText().toString());
-                            FirebaseUser user = db.getCurrentUser();
+                            db.updateCurrentUser(user);
+                            Toast.makeText(AddKidActivity.this,db.getUid(), Toast.LENGTH_LONG).show();
                             Intent i = new Intent(AddKidActivity.this, StaffActivity.class);
-                            i.putExtra("sign", "t");
-                            i.putExtra("staff", staff_id + "");
+                            //i.putExtra("sign", "t");
+                            //i.putExtra("staff", staff_id + "");
                             startActivity(i);
                         }
                         else

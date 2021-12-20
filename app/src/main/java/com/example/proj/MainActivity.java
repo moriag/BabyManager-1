@@ -43,7 +43,35 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser currentUser = db.getCurrentUser();
         if(currentUser != null)
         {
-            db.signOut();
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Parent");
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    boolean staff = true;
+                    for(DataSnapshot snap : snapshot.getChildren())
+                    {
+                        //Toast.makeText(MainActivity.this, db.getUid(), Toast.LENGTH_LONG).show();
+                        if(db.getUid().equals(snap.getKey()))
+                        {
+                            Intent i = new Intent(MainActivity.this, ParentActivity.class);
+                            startActivity(i);
+                            staff = false;
+                            break;
+                        }
+                    }
+                    if(staff)
+                    {
+                        Intent i = new Intent(MainActivity.this, StaffActivity.class);
+                        startActivity(i);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         }
     }
 
