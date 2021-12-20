@@ -25,8 +25,8 @@ public class StaffActivity extends AppCompatActivity {
 
     private FirebaseAuth db;
     static int id_gen = 0;
-    /*String s_id;
-    String sign;*/
+    String s_id;
+    String sign;
 
     RecyclerView rv;
     myAdapter adapter;
@@ -38,13 +38,14 @@ public class StaffActivity extends AppCompatActivity {
         setContentView(R.layout.activity_staff);
         db = FirebaseAuth.getInstance();
         Intent i = getIntent();
-        //s_id = i.getStringExtra("staff");
-        //sign = i.getStringExtra("sign");
 
-        /*if(sign == null)
+        s_id = i.getStringExtra("staff");
+        sign = i.getStringExtra("sign");
+
+        if(sign == null)
         {
             s_id = db.getUid();
-        }*/
+        }
 
         rv = findViewById(R.id.kidList);
         rv.setHasFixedSize(true);
@@ -59,8 +60,9 @@ public class StaffActivity extends AppCompatActivity {
 
     public void show() {
 
+        list.clear();
         FirebaseDatabase dbd = FirebaseDatabase.getInstance();
-        DatabaseReference ref = dbd.getReference("Staff/" +  db.getUid() + "/kids");
+        DatabaseReference ref = dbd.getReference("Staff/" +  s_id + "/kids");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -93,7 +95,7 @@ public class StaffActivity extends AppCompatActivity {
         {
             i.putExtra("staff_id", s_id);
         }*/
-        i.putExtra("staff_id", db.getUid());
+        i.putExtra("staff_id", s_id);
         startActivity(i);
     }
 

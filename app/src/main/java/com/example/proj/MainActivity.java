@@ -43,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser currentUser = db.getCurrentUser();
         if(currentUser != null)
         {
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Parent");
+            db.signOut();
+            /*DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Parent");
             ref.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onCancelled(@NonNull DatabaseError error) {
 
                 }
-            });
+            });*/
         }
     }
 

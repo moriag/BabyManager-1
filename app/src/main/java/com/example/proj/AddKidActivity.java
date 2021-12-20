@@ -43,6 +43,10 @@ public class AddKidActivity extends AppCompatActivity {
         db = FirebaseAuth.getInstance();
         user = db.getCurrentUser();
     }
+    public void onStart() {
+        super.onStart();
+        user = db.getCurrentUser();
+    }
 
 
     public void sign_up(View v) {
@@ -93,10 +97,10 @@ public class AddKidActivity extends AppCompatActivity {
                             ref.child(db.getUid()).child("kids").child(id + "").setValue(staff_id);
                             ref.child(db.getUid()).child("name").setValue(name_p2.getText().toString());
                             db.updateCurrentUser(user);
-                            Toast.makeText(AddKidActivity.this,db.getUid(), Toast.LENGTH_LONG).show();
+                            //Toast.makeText(AddKidActivity.this,db.getUid(), Toast.LENGTH_LONG).show();
                             Intent i = new Intent(AddKidActivity.this, StaffActivity.class);
-                            //i.putExtra("sign", "t");
-                            //i.putExtra("staff", staff_id + "");
+                            i.putExtra("sign", "t");
+                            i.putExtra("staff", staff_id + "");
                             startActivity(i);
                         }
                         else
