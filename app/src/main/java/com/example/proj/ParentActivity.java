@@ -43,7 +43,7 @@ public class ParentActivity extends AppCompatActivity {
         adapter = new myAdapter(this, list);
         rv.setAdapter(adapter);
 
-        show();
+        //show();
 
     }
 
