@@ -24,7 +24,6 @@ import java.util.List;
 public class StaffActivity extends AppCompatActivity {
 
     private FirebaseAuth db;
-    static int id_gen = 0;
     String s_id;
     String sign;
 
@@ -54,7 +53,7 @@ public class StaffActivity extends AppCompatActivity {
         adapter = new myAdapter(this, list);
         rv.setAdapter(adapter);
 
-        show();
+        //show();
 
     }
 
@@ -86,15 +85,6 @@ public class StaffActivity extends AppCompatActivity {
     public void new_kid(View v) {
 
         Intent i = new Intent(StaffActivity.this, AddKidActivity.class);
-        i.putExtra("id", id_gen++ + "");
-        /*if(sign == null)
-        {
-            i.putExtra("staff_id", db.getUid());
-        }
-        else
-        {
-            i.putExtra("staff_id", s_id);
-        }*/
         i.putExtra("staff_id", s_id);
         startActivity(i);
     }

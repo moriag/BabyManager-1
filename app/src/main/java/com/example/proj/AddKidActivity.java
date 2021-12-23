@@ -27,10 +27,10 @@ import java.util.ArrayList;
 
 public class AddKidActivity extends AppCompatActivity {
 
-    private int id;
     private String staff_id;
     private FirebaseAuth db;
     FirebaseUser user;
+    FirebaseDatabase fdb;
 
 
     @Override
@@ -39,9 +39,9 @@ public class AddKidActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_kid);
         Intent intent = getIntent();
         staff_id = intent.getStringExtra("staff_id");
-        id = Integer.parseInt(intent.getStringExtra("id"));
         db = FirebaseAuth.getInstance();
         user = db.getCurrentUser();
+        fdb = FirebaseDatabase.getInstance();
     }
     public void onStart() {
         super.onStart();
@@ -60,14 +60,11 @@ public class AddKidActivity extends AppCompatActivity {
         EditText name_k = (EditText)findViewById(R.id.editTextTextPersonName3);
         EditText remark = (EditText)findViewById(R.id.editTextTextPersonName4);
 
-        FirebaseDatabase fdb = FirebaseDatabase.getInstance();
-        DatabaseReference ref = fdb.getReference("Staff");
-        ref.child(staff_id).child("kids").child(id + "").child("diapers").setValue(true);
-        ref.child(staff_id).child("kids").child(id + "").child("clothes").setValue(true);
-        ref.child(staff_id).child("kids").child(id + "").child("food").setValue(true);
-        ref.child(staff_id).child("kids").child(id + "").child("remark").setValue(remark.getText().toString());
-        ref.child(staff_id).child("kids").child(id + "").child("attendance").setValue(true);
-        ref.child(staff_id).child("kids").child(id + "").child("name").setValue(name_k.getText().toString());
+        DatabaseReference ref = fdb.getReference("Staff/" + staff_id);
+
+        ref.child("Kids").child(name_k.getText().toString()).setValue(remark.getText().toString());
+        ref.child("Inventory").child(name_k.getText().toString()).setValue(new Inventory());
+        ref.child("Attendance").child(name_k.getText().toString()).setValue(false);
 
 
         db.createUserWithEmailAndPassword(email_p1.getText().toString(), pass_p1.getText().toString())
@@ -76,9 +73,10 @@ public class AddKidActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful())
                         {
-                            DatabaseReference ref = fdb.getReference("Parent");
-                            ref.child(db.getUid()).child("kids").child(id + "").setValue(staff_id);
-                            ref.child(db.getUid()).child("name").setValue(name_p1.getText().toString());
+                            DatabaseReference ref = fdb.getReference("Staff/" + staff_id + "/Info/" + name_k.getText().toString());
+                            ref.child(db.getUid()).setValue(new Parent("053******", email_p1.getText().toString(), name_p1.getText().toString()));
+                            ref = fdb.getReference("Parent");
+                            ref.child(db.getUid()).child("kids").child(name_k.getText().toString()).setValue(staff_id);
                         }
                         else
                         {
@@ -86,21 +84,23 @@ public class AddKidActivity extends AppCompatActivity {
                         }
                     }
                 });
-
         db.createUserWithEmailAndPassword(email_p2.getText().toString(), pass_p2.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful())
                         {
-                            DatabaseReference ref = fdb.getReference("Parent");
-                            ref.child(db.getUid()).child("kids").child(id + "").setValue(staff_id);
-                            ref.child(db.getUid()).child("name").setValue(name_p2.getText().toString());
-                            db.updateCurrentUser(user);
+                            DatabaseReference ref = fdb.getReference("Staff/" + staff_id + "/Info/" + name_k.getText().toString());
+                            ref.child(db.getUid()).setValue(new Parent("053******", email_p2.getText().toString(), name_p2.getText().toString()));
+                            ref = fdb.getReference("Parent");
+                            ref.child(db.getUid()).child("kids").child(name_k.getText().toString()).setValue(staff_id);
+
+
                             //Toast.makeText(AddKidActivity.this,db.getUid(), Toast.LENGTH_LONG).show();
-                            Intent i = new Intent(AddKidActivity.this, StaffActivity.class);
-                            i.putExtra("sign", "t");
-                            i.putExtra("staff", staff_id + "");
+                            //db.signOut();
+                            Intent i = new Intent(AddKidActivity.this, MainActivity.class);
+                            //i.putExtra("sign", "t");
+                            //i.putExtra("staff", staff_id + "");
                             startActivity(i);
                         }
                         else

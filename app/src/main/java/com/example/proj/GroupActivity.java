@@ -48,8 +48,7 @@ public class GroupActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful())
                         {
-                            Staff s = new Staff(name.getText().toString());
-                            dbr.child(db.getUid().toString()).setValue(s);
+                            dbr.child(db.getUid().toString()).child("Name").setValue(name.getText().toString());
                             db.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                                     .addOnCompleteListener(GroupActivity.this, new OnCompleteListener<AuthResult>() {
                                         @Override
