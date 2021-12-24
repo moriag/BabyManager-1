@@ -1,32 +1,13 @@
 package com.example.proj;
 
-import android.hardware.lights.LightsManager;
+public class Staff extends User {
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+    public Staff(String userID, String userType) {
+        super(userID,userType);
 
-public class Staff {
-
-    private String name;
+    }
 
     public Staff(String name) {
-
-        this.name = name;
-
+        super(name);
     }
-    public Staff(String name, ArrayList<Kid> kids){
-        this.name = name;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-
-        this.name = name;
-
-    }
-
 }
