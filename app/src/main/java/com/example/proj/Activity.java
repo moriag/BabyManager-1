@@ -1,5 +1,10 @@
 package com.example.proj;
 
+import android.os.Build;
+import android.util.Log;
+
+import androidx.annotation.RequiresApi;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -32,41 +37,52 @@ public class Activity {
     }
 
 
-//    public static void addKidToDatabase(String name, String email_1, String email_2, String remark,CallBack callBack) {
-//
-//
-//        DataHendler.addKidToParent(name,email_1,new CallBack(){
-//
-//            @Override
-//            public void run() {
-//
-//                DataHendler.addKidToParent(name,email_2,new CallBack(){
-//
-//                    @Override
-//                    public void run() {
-//                        DataHendler.addKidToStaff(name,email_1,email_2,remark,callBack);
-//
-//                    }
-//
-//                    @Override
-//                    public void fail(String error) {
-//                        if(email_2.equals(""))run();
-//                        else{
-//                            DataHendler.removeKidFromParent(name,email_1);
-//                            callBack.fail(error);
-//                        }
-//
-//                    }
-//                });
-//            }
-//
-//            @Override
-//            public void fail(String error) {
-//
-//            }
-//        });
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public static void addKidToDatabase(String name, String email_1, String email_2, String remark, CallBack callBack) {
+        if(email_1.isEmpty()){
+            callBack.fail("Email for parent1 must be filled");
+            return;
+        }
+        if (!user.AddKid(name,remark)){
+            callBack.fail("a child with this name is already added");
+            return;
+        }
+        DataHendler.getUidByEmail(email_1,"Parent",new StringCallBack() {
+            @Override
+            public void run(String UID1) {
 
-//        DataHendler.addKidToStaff(firstName,lastName,email_1,email_2,remark);
-//        callBack.run();
+                if (!email_2.isEmpty()) {
+                    DataHendler.getUidByEmail(email_2,"Parent", new StringCallBack() {
+                        @Override
+                        public void run(String UID2) {
+                            Log.d("uid",UID2);
+                            DataHendler.addKidToParent(name, UID2);
+                            DataHendler.addKidToParent(name, UID1);
+                            DataHendler.addKidToStaff(name, remark);
+                            callBack.run();
+
+                        }
+
+                        @Override
+                        public void fail(String error) {
+                            user.removeKid(name);
+                            callBack.fail(error);
+                        }
+                    });
+                }
+                else {
+                    DataHendler.addKidToParent(name, UID1);
+                    DataHendler.addKidToStaff(name, remark);
+                    callBack.run();
+                }
+
+            }
+
+            @Override
+            public void fail(String error) {
+                user.removeKid(name);
+                callBack.fail(error);
+            }
+        });
     }
 }
