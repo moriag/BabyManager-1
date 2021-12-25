@@ -25,8 +25,8 @@ public class User {
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void AddKid(String key, String value){
-        kids.putIfAbsent(key,value);
+    public boolean AddKid(String key, String value){
+        return(kids.putIfAbsent(key,value)==null);
     }
 
     public String getUID() {
@@ -39,5 +39,9 @@ public class User {
 
     public Hashtable<String, String> getKids() {
         return kids;
+    }
+
+    public void removeKid(String name) {
+        kids.remove(name);
     }
 }
