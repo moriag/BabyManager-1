@@ -14,6 +14,7 @@ public class UserInfo {
         this.last_name=last_name;
     }
 
+
     public UserInfo() {
 
     }
