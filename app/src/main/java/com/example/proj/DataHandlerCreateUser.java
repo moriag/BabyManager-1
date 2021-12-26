@@ -50,8 +50,13 @@ public class DataHandlerCreateUser {
     public void CreateUserEntry(UserInfo info,String userType, CallBack callBack) {
         FirebaseDatabase fdb = FirebaseDatabase.getInstance();
         DatabaseReference dbr = fdb.getReference();
+<<<<<<< HEAD
         dbr.child("EmailToUid").child(info.email).setValue(UID);
         dbr = dbr.child(userType).child(UID);
+=======
+        dbr.child(userType).child("EmailToUid").child(info.email.replace(".",",")).setValue(UID);
+        dbr=dbr.child(userType).child(UID);
+>>>>>>> b81bc5ee7d7d45fbf4bf1a42f8ff37c2434efde6
         dbr.child("info").setValue(info);
 //        dbr.child("Kids")
 //        if(userType.equals("Staff"))
