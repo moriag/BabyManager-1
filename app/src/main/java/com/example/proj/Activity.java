@@ -10,7 +10,7 @@ interface CallBack{
 
 public class Activity {
     public static User user;
-    DatabaseReference database_ref=FirebaseDatabase.getInstance().getReference();
+    DatabaseReference database_ref = FirebaseDatabase.getInstance().getReference();
     public static void startActivity(String name,String pass,CallBack callback){
 
         DataHendler.LoginUser(name, pass, new CallBack() {
@@ -29,22 +29,22 @@ public class Activity {
 
     private static void setUser(CallBack callback) {
        DataHendler.setUser(callback);
-    }
+
 
 
 //    public static void addKidToDatabase(String name, String email_1, String email_2, String remark,CallBack callBack) {
 //
 //
-//        DataHendler.addKidToParent(name,email_1,new CallBack(){
+//        DataHandler.addKidToParent(name,email_1,new CallBack(){
 //
 //            @Override
 //            public void run() {
 //
-//                DataHendler.addKidToParent(name,email_2,new CallBack(){
+//                DataHandler.addKidToParent(name,email_2,new CallBack(){
 //
 //                    @Override
 //                    public void run() {
-//                        DataHendler.addKidToStaff(name,email_1,email_2,remark,callBack);
+//                        DataHandler.addKidToStaff(name,email_1,email_2,remark,callBack);
 //
 //                    }
 //
@@ -52,7 +52,7 @@ public class Activity {
 //                    public void fail(String error) {
 //                        if(email_2.equals(""))run();
 //                        else{
-//                            DataHendler.removeKidFromParent(name,email_1);
+//                            DataHandler.removeKidFromParent(name,email_1);
 //                            callBack.fail(error);
 //                        }
 //
@@ -66,7 +66,7 @@ public class Activity {
 //            }
 //        });
 
-//        DataHendler.addKidToStaff(firstName,lastName,email_1,email_2,remark);
+//        DataHandler.addKidToStaff(firstName,lastName,email_1,email_2,remark);
 //        callBack.run();
     }
 }

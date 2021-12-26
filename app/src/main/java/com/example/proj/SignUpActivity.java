@@ -2,12 +2,12 @@ package com.example.proj;
 
 public class SignUpActivity {
 
-    public static void CreateUser(UserInfo info,String password,String userType,CallBack callBack) {
-        DataHandlerCreateUser dhc=new DataHandlerCreateUser();
+    public static void CreateUser(UserInfo info, String password, String userType, CallBack callBack) {
+        DataHandlerCreateUser dhc = new DataHandlerCreateUser();
         dhc.newUser(info.email, password,new CallBack() {
             @Override
             public void run() {
-                dhc.CreateUserEntry(info,userType,callBack);
+                dhc.CreateUserEntry(info, userType, callBack);
             }
 
             @Override

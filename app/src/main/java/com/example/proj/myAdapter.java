@@ -15,11 +15,11 @@ import java.util.ArrayList;
 public class myAdapter extends RecyclerView.Adapter<myAdapter.MyViewHolder> {
 
     Context context;
-    ArrayList<Kid> list;
+    ArrayList<KidInfo> kids;
 
-    public myAdapter(Context context, ArrayList<Kid> list) {
+    public myAdapter(Context context, ArrayList<KidInfo> kids) {
         this.context = context;
-        this.list = list;
+        this.kids = kids;
     }
 
     @NonNull
@@ -32,62 +32,26 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        Kid k = list.get(position);
+        KidInfo k = kids.get(position);
         holder.name.setText(k.getName());
-        holder.remark.setText(k.getRemark());
-        if(k.isAttendance())
-        {
-            holder.attendance.setText("   v   ");
-        }
-        else
-        {
-            holder.attendance.setText("   x   ");
-        }
-        if(k.isFood())
-        {
-            holder.food.setText("   v   |   ");
-        }
-        else
-        {
-            holder.food.setText("   x   |   ");
-        }
-        if(k.isClothes())
-        {
-            holder.clothes.setText("   v   ");
-        }
-        else
-        {
-            holder.clothes.setText("   x   ");
-        }
-        if(k.isDiapers())
-        {
-            holder.diapers.setText("   v   |   ");
-        }
-        else
-        {
-            holder.diapers.setText("   x   |   ");
-        }
 
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return kids.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView name, remark, attendance, diapers, food, clothes;
+        TextView name, inventory, attendance;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            name = itemView.findViewById(R.id.kid_name);
-            remark = itemView.findViewById(R.id.kid_remark);
-            attendance = itemView.findViewById(R.id.attendance);
-            diapers = itemView.findViewById(R.id.diaper);
-            food = itemView.findViewById(R.id.food);
-            clothes = itemView.findViewById(R.id.clothes);
+            name = itemView.findViewById(R.id.kidd);
+            inventory = itemView.findViewById(R.id.invent);
+            attendance = itemView.findViewById(R.id.attend);
 
         }
     }

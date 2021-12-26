@@ -51,7 +51,7 @@ public class AddKidActivity extends AppCompatActivity {
 
     public void sign_up(View v) {
 
-        EditText email_p1 = (EditText)findViewById(R.id.editTextTextEmailAddress2);
+        /*EditText email_p1 = (EditText)findViewById(R.id.editTextTextEmailAddress2);
         EditText pass_p1 = (EditText)findViewById(R.id.editTextNumberPassword);
         EditText name_p1 = (EditText)findViewById(R.id.editTextTextPersonName);
         EditText email_p2 = (EditText)findViewById(R.id.editTextTextEmailAddress3);
@@ -108,7 +108,7 @@ public class AddKidActivity extends AppCompatActivity {
                             Toast.makeText(AddKidActivity.this,"Failed(222222)!", Toast.LENGTH_LONG).show();
                         }
                     }
-                });
+                });*/
 
 
     }

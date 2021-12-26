@@ -29,7 +29,7 @@ public class StaffActivity extends AppCompatActivity {
 
     RecyclerView rv;
     myAdapter adapter;
-    ArrayList<Kid> list;
+    ArrayList<KidInfo> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,7 @@ public class StaffActivity extends AppCompatActivity {
         rv = findViewById(R.id.kidList);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this));
-        list = new ArrayList<Kid>();
+        list = new ArrayList<KidInfo>();
         adapter = new myAdapter(this, list);
         rv.setAdapter(adapter);
 
@@ -68,7 +68,7 @@ public class StaffActivity extends AppCompatActivity {
 
                 for(DataSnapshot kidSnap : snapshot.getChildren())
                 {
-                    Kid k = kidSnap.getValue(Kid.class);
+                    KidInfo k = kidSnap.getValue(KidInfo.class);
                     list.add(k);
                 }
                 adapter.notifyDataSetChanged();

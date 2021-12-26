@@ -13,15 +13,16 @@ public class DataHandlerCreateUser {
     private String UID;
 //    private DatabaseReference dbr;
 //    public DataHandlerCreateUser()
+
     public void newUser(String email, String password,CallBack callBack) {
         FirebaseAuth db=FirebaseAuth.getInstance();
-//        db=FirebaseAuth.getInstance();
+//        db = FirebaseAuth.getInstance();
         db.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            UID= db.getUid();
+                            UID = db.getUid();
                             callBack.run();
                         }
                     }
@@ -50,7 +51,7 @@ public class DataHandlerCreateUser {
         FirebaseDatabase fdb = FirebaseDatabase.getInstance();
         DatabaseReference dbr = fdb.getReference();
         dbr.child("EmailToUid").child(info.email).setValue(UID);
-        dbr=dbr.child(userType).child(UID);
+        dbr = dbr.child(userType).child(UID);
         dbr.child("info").setValue(info);
 //        dbr.child("Kids")
 //        if(userType.equals("Staff"))

@@ -20,6 +20,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ParentActivity extends AppCompatActivity {
 
@@ -27,7 +28,7 @@ public class ParentActivity extends AppCompatActivity {
 
     RecyclerView rv;
     myAdapter adapter;
-    ArrayList<Kid> list;
+    ArrayList<KidInfo> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class ParentActivity extends AppCompatActivity {
         rv = findViewById(R.id.kid_list1);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this));
-        list = new ArrayList<Kid>();
+        list = new ArrayList<KidInfo>();
         adapter = new myAdapter(this, list);
         rv.setAdapter(adapter);
 
@@ -49,7 +50,14 @@ public class ParentActivity extends AppCompatActivity {
 
     public void show() {
 
-        FirebaseDatabase dbd = FirebaseDatabase.getInstance();
+        List<String> kids = getKids();
+        for(String name : kids)
+        {
+            list.add(new KidInfo(name, DataHandler.getInventory(name), DataHandler.getAttendance(name)));
+        }
+        adapter.notifyDataSetChanged();
+
+        /*FirebaseDatabase dbd = FirebaseDatabase.getInstance();
         DatabaseReference ref = dbd.getReference("Parent/" +  db.getUid() + "/kids");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -67,7 +75,7 @@ public class ParentActivity extends AppCompatActivity {
                             {
                                 if(snap.getKey().equals(k_id))
                                 {
-                                    Kid k = snap.getValue(Kid.class);
+                                    KidInfo k = snap.getValue(KidInfo.class);
                                     list.add(k);
                                 }
                             }
@@ -87,7 +95,7 @@ public class ParentActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(ParentActivity.this, "Faillllll!!!!", Toast.LENGTH_LONG).show();
             }
-        });
+        });*/
 
     }
 

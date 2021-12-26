@@ -18,7 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 public class DataHendler {
 
     public static void LoginUser(String email,String password,CallBack callback){
-        FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -39,26 +39,26 @@ public class DataHendler {
 
         DatabaseReference database_ref = FirebaseDatabase.getInstance().getReference();
         final String[] userType = new String[1];
-        userType[0] ="Staff";
+        userType[0] = "Staff";
         DatabaseReference type_ref = database_ref.child(userType[0]);
         type_ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String uid=FirebaseAuth.getInstance().getUid();
+                String uid = FirebaseAuth.getInstance().getUid();
                 for(DataSnapshot snap : snapshot.getChildren())
                 {
                     //Toast.makeText(MainActivity.this, db.getUid(), Toast.LENGTH_LONG).show();
                     if(uid.equals(snap.getKey()))
                     {
-                        Activity.user=new Staff(uid,userType[0]);
+                        Activity.user = new Staff(uid,userType[0]);
                         setUserKids(type_ref.child(uid).child("Kids"),callback);
                         return;
 
                     }
                 }
                 //if parent
-                userType[0] ="Parent";
-                Activity.user=new Parent(uid,userType[0]);
+                userType[0] = "Parent";
+                Activity.user = new Parent(uid,userType[0]);
                 setUserKids(database_ref.child(userType[0]).child(uid).child("Kids"),callback);
 
 
