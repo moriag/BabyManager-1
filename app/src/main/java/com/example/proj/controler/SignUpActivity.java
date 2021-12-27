@@ -1,4 +1,8 @@
-package com.example.proj;
+package com.example.proj.controler;
+
+import com.example.proj.model.CallBack;
+import com.example.proj.model.DataHandlerCreateUser;
+import com.example.proj.model.UserInfo;
 
 public class SignUpActivity {
 

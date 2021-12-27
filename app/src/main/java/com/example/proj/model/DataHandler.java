@@ -1,7 +1,8 @@
-package com.example.proj;
+package com.example.proj.model;
 
 import androidx.annotation.NonNull;
 
+import com.example.proj.controler.Activity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -14,13 +15,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-interface StringCallBack{
-    void run(String string);
-    void fail(String string);
-}
-public class DataHendler {
+public class DataHandler {
 
-    public static void LoginUser(String email,String password,CallBack callback){
+    public static void LoginUser(String email, String password, CallBack callback){
         FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -130,7 +127,7 @@ public class DataHendler {
         DatabaseReference database_ref = FirebaseDatabase.getInstance().getReference().child("Staff").child(Activity.user.getUID());
         database_ref.child("Kids").child(name).setValue(remark);
         database_ref.child("Attendance").child(name).setValue(false);
-        database_ref.child("Inventory").child(name).setValue(new Inventory());
+        database_ref.child("Inventory").child(name).setValue(new KidInventory());
 
     }
 
@@ -206,5 +203,6 @@ public class DataHendler {
             }
         });
     }
+
 
 }

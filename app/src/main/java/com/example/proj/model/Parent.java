@@ -1,4 +1,4 @@
-package com.example.proj;
+package com.example.proj.model;
 
 import androidx.annotation.NonNull;
 
@@ -13,6 +13,11 @@ public class Parent extends User{
 
     public Parent(String uid, CallBack callBack) {
         super(uid,"Parent",callBack);
+    }
+
+    @Override
+    public boolean AddKid(String key, String value) {
+        return false;
     }
 
     @Override

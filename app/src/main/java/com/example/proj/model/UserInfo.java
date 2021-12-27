@@ -1,10 +1,10 @@
-package com.example.proj;
+package com.example.proj.model;
 
 public class UserInfo {
-    String phone_number;
-    String email;
-    String first_name;
-    String last_name;
+    public String phone_number;
+    public String email;
+    public String first_name;
+    public String last_name;
 
 
     public UserInfo(String first_name, String last_name, String phone, String email) {

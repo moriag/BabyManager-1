@@ -1,14 +1,10 @@
-package com.example.proj;
+package com.example.proj.model;
 
 import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
-import com.example.proj.CallBack;
-import com.example.proj.Inventory;
-import com.example.proj.UserInfo;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,15 +14,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.Map;
 
 public abstract class User {
     private String UID;
     private String name;
     private String UserType;
-    private Hashtable<String,String> kids= new Hashtable<>();
-    private Hashtable<String, Inventory> inventory =new Hashtable<>();
-    private Hashtable<String,Boolean> attendance =new Hashtable<>();
+    protected Hashtable<String,String> kids= new Hashtable<>();
+    protected Inventory inventory;
+    protected Attendance attendance;
     protected Hashtable<String,ArrayList<UserInfo>> info;
 
 
@@ -67,6 +62,7 @@ public abstract class User {
     public boolean AddKid(String key, String value){
         return(kids.putIfAbsent(key,value)==null);
     }
+
     public String getKid(String name){
         return kids.get(name);
     }
@@ -90,42 +86,16 @@ public abstract class User {
         info.put(name,userinfo);
     }
 
-    public void setInInventory(String name, Inventory value) {
-        inventory.put(name,value);
+    public void setInInventory(String name, KidInventory value) {
+        inventory.addKid(name,value);
     }
 
-    private void steInAttendance(String name, Boolean value) {
-        attendance.put(name,value);
+    private void steInAttendance(String name, Integer value) {
+        attendance.addKid(name,value);
     }
-    public void setKidAttendanceListener(String name,String staffUID){
-        database_ref.child("Staff").child(staffUID).child("Attendance").child(name).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                steInAttendance(name,(Boolean)snapshot.getValue());
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
-
-    }
-    public void setInventoryKidListeners(String name,String staffUID){
-        database_ref.child("Staff").child(staffUID).child("Inventory").child(name).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                setInInventory(name,snapshot.getValue(Inventory.class));
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-    }
-    public abstract void setInfo(String name,CallBack callBack);
+    public abstract void setInfo(String name, CallBack callBack);
     public ArrayList<UserInfo> getInfo(String name){
         return info.get(name);
 //        return info;

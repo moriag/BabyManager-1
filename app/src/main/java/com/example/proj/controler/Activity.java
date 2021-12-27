@@ -1,24 +1,24 @@
-package com.example.proj;
+package com.example.proj.controler;
 
 import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
+
+import com.example.proj.model.CallBack;
+import com.example.proj.model.DataHandler;
+import com.example.proj.model.StringCallBack;
+import com.example.proj.model.User;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-interface CallBack{
-    void run();
-    void fail(String error);
-}
 
 public class Activity {
     public static User user;
     DatabaseReference database_ref=FirebaseDatabase.getInstance().getReference();
-    public static void startActivity(String name,String pass,CallBack callback){
+    public static void startActivity(String name, String pass, CallBack callback){
 
-        DataHendler.LoginUser(name, pass, new CallBack() {
+        DataHandler.LoginUser(name, pass, new CallBack() {
             @Override
             public void run() {
                 setUser(callback);
@@ -33,7 +33,7 @@ public class Activity {
     }
 
     private static void setUser(CallBack callback) {
-       DataHendler.setUser(callback);
+       DataHandler.setUser(callback);
     }
 
 
@@ -47,18 +47,18 @@ public class Activity {
             callBack.fail("a child with this name is already added");
             return;
         }
-        DataHendler.getUidByEmail(email_1,"Parent",new StringCallBack() {
+        DataHandler.getUidByEmail(email_1,"Parent",new StringCallBack() {
             @Override
             public void run(String UID1) {
 
                 if (!email_2.isEmpty()) {
-                    DataHendler.getUidByEmail(email_2,"Parent", new StringCallBack() {
+                    DataHandler.getUidByEmail(email_2,"Parent", new StringCallBack() {
                         @Override
                         public void run(String UID2) {
                             Log.d("uid",UID2);
-                            DataHendler.addKidToParent(name, UID2);
-                            DataHendler.addKidToParent(name, UID1);
-                            DataHendler.addKidToStaff(name, remark);
+                            DataHandler.addKidToParent(name, UID2);
+                            DataHandler.addKidToParent(name, UID1);
+                            DataHandler.addKidToStaff(name, remark);
                             callBack.run();
 
                         }
@@ -71,8 +71,8 @@ public class Activity {
                     });
                 }
                 else {
-                    DataHendler.addKidToParent(name, UID1);
-                    DataHendler.addKidToStaff(name, remark);
+                    DataHandler.addKidToParent(name, UID1);
+                    DataHandler.addKidToStaff(name, remark);
                     callBack.run();
                 }
 

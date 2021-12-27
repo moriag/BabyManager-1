@@ -1,4 +1,4 @@
-package com.example.proj;
+package com.example.proj.model;
 
 import androidx.annotation.NonNull;
 
@@ -13,7 +13,7 @@ public class DataHandlerCreateUser {
     private String UID;
 //    private DatabaseReference dbr;
 //    public DataHandlerCreateUser()
-    public void newUser(String email, String password,CallBack callBack) {
+    public void newUser(String email, String password, CallBack callBack) {
         FirebaseAuth db=FirebaseAuth.getInstance();
 //        db=FirebaseAuth.getInstance();
         db.createUserWithEmailAndPassword(email, password)
@@ -46,7 +46,7 @@ public class DataHandlerCreateUser {
 //
 //    }
 
-    public void CreateUserEntry(UserInfo info,String userType, CallBack callBack) {
+    public void CreateUserEntry(UserInfo info, String userType, CallBack callBack) {
         FirebaseDatabase fdb = FirebaseDatabase.getInstance();
         DatabaseReference dbr = fdb.getReference();
         dbr.child(userType).child("EmailToUid").child(info.email.replace(".",",")).setValue(UID);

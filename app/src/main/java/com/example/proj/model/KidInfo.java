@@ -1,12 +1,12 @@
-package com.example.proj;
+package com.example.proj.model;
 
 public class KidInfo {
 
     String name;
     boolean attendance;
-    Inventory inventory;
+    KidInventory inventory;
 
-    public KidInfo(String name, boolean attendance, Inventory inventory) {
+    public KidInfo(String name, boolean attendance, KidInventory inventory) {
         this.name = name;
         this.attendance = attendance;
         this.inventory = inventory;
@@ -28,11 +28,11 @@ public class KidInfo {
         this.attendance = attendance;
     }
 
-    public Inventory getInventory() {
+    public KidInventory getInventory() {
         return inventory;
     }
 
-    public void setInventory(Inventory inventory) {
+    public void setInventory(KidInventory inventory) {
         this.inventory = inventory;
     }
 }

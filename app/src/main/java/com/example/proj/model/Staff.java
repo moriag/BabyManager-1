@@ -1,6 +1,9 @@
-package com.example.proj;
+package com.example.proj.model;
+
+import android.os.Build;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -8,7 +11,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class Staff extends User {
 
@@ -25,7 +27,7 @@ public class Staff extends User {
     }
 
     @Override
-    public void setInfo(String name,CallBack callBack) {
+    public void setInfo(String name, CallBack callBack) {
         database_ref.child("Staff").child(getUID()).child("Parents").child(name).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -76,7 +78,12 @@ public class Staff extends User {
 
     }
 
-
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public boolean AddKid(String key, String value){
+        if(super.AddKid(key,value))return false;
+        return true;
+    }
 
 //    public void addParents(String key, ArrayList<String> parents) {
 //        this.parents.put(key,parents);

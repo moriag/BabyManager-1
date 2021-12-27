@@ -1,13 +1,13 @@
-package com.example.proj;
+package com.example.proj.model;
 
-public class Inventory {
+public class KidInventory {
 
     boolean diapers;
     boolean food;
     boolean clothes;
     boolean wipes;
 
-    public Inventory() {}
+    public KidInventory() {}
 
     public boolean isDiapers() {
         return diapers;
