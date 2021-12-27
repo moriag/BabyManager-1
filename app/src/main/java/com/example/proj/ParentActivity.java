@@ -2,6 +2,7 @@ package com.example.proj;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.telecom.Call;
 import android.view.View;
 import android.widget.Toast;
 
@@ -49,6 +50,7 @@ public class ParentActivity extends AppCompatActivity {
     }
 
     public void show() {
+
 
         List<String> kids = getKids();
         for(String name : kids)
