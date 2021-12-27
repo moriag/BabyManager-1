@@ -21,7 +21,7 @@ public class DataHandlerCreateUser {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            UID= db.getUid();
+                            UID = db.getUid();
                             callBack.run();
                         }
                     }
