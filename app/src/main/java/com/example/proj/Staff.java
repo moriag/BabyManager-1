@@ -31,13 +31,14 @@ public class Staff extends User {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
 //                Map<String, UserInfo> td = ;
-                ArrayList<String> parents=new ArrayList<String>(((HashMap<String,String>) snapshot.getValue()).values());
+                ArrayList<String> parents = new ArrayList<String>(((HashMap<String,String>) snapshot.getValue()).values());
                 database_ref.child("Parent").child(parents.get(0)).child("Info").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        ArrayList<UserInfo> parentinfo= new ArrayList<UserInfo>(2);
+                        ArrayList<UserInfo> parentinfo = new ArrayList<UserInfo>(2);
                         parentinfo.add(snapshot.getValue(UserInfo.class));
-                        if(parents.size()==1){
+                        if(parents.size() == 1)
+                        {
                             info.put(name,parentinfo);
                             callBack.run();
                         }

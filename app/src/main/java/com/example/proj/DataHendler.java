@@ -39,12 +39,12 @@ public class DataHendler {
     }
 
     public static void setUser(CallBack callback) {
-        FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         DatabaseReference database_ref = FirebaseDatabase.getInstance().getReference();
         database_ref.child("Staff").child(firebaseAuth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.getValue()!=null){
+                if(snapshot.getValue() != null){
                     Activity.user=new Staff(firebaseAuth.getUid(),callback);
                 }
                 else Activity.user=new Parent(firebaseAuth.getUid(),callback);;
@@ -55,7 +55,6 @@ public class DataHendler {
 
             }
         });
-
 
 
 //        final String[] userType = new String[1];
@@ -191,8 +190,8 @@ public class DataHendler {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<String> parents;
                 for (DataSnapshot kid:snapshot.getChildren()){
-                    parents=new ArrayList<>(2);
-                    for (DataSnapshot parent:kid.getChildren()){
+                    parents = new ArrayList<>(2);
+                    for (DataSnapshot parent: kid.getChildren()){
                         parents.add((String) parent.getValue());
                     }
 //                    ((Staff)Activity.user).addParents(kid.getKey(),parents);

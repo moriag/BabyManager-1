@@ -24,7 +24,7 @@ public abstract class User {
     private String UID;
     private String name;
     private String UserType;
-    private Hashtable<String,String> kids= new Hashtable<>();
+    private Hashtable<String,String> kids = new Hashtable<>();
     private Hashtable<String, Inventory> inventory =new Hashtable<>();
     private Hashtable<String,Boolean> attendance =new Hashtable<>();
     protected Hashtable<String,ArrayList<UserInfo>> info;
@@ -32,7 +32,7 @@ public abstract class User {
 
     protected DatabaseReference database_ref;
     public User(String UID, String userType, CallBack callBack) {
-        database_ref= FirebaseDatabase.getInstance().getReference();
+        database_ref = FirebaseDatabase.getInstance().getReference();
         this.UID = UID;
         UserType = userType;
         initKids(callBack);
@@ -44,7 +44,7 @@ public abstract class User {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                kids=new Hashtable<>( (HashMap<String,String>) snapshot.getValue());
+                kids = new Hashtable<>( (HashMap<String,String>) snapshot.getValue());
 //                ArrayList<UserInfo> parents=new ArrayList<UserInfo>(td.values());
 //                for (DataSnapshot kid:snapshot.getChildren())
 //                    AddKid(kid.getKey(), kid.getValue().toString());

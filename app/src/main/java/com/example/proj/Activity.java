@@ -33,11 +33,11 @@ public class Activity {
     }
 
     private static void setUser(CallBack callback) {
-       DataHendler.setUser(callback);
+        DataHendler.setUser(callback);
 
-
-
-<<<<<<< HEAD
+    }
+}
+//<<<<<<< HEAD
 //    public static void addKidToDatabase(String name, String email_1, String email_2, String remark,CallBack callBack) {
 //
 //
@@ -74,8 +74,8 @@ public class Activity {
 
 //        DataHandler.addKidToStaff(firstName,lastName,email_1,email_2,remark);
 //        callBack.run();
-=======
-    @RequiresApi(api = Build.VERSION_CODES.N)
+//=======
+    /*@RequiresApi(api = Build.VERSION_CODES.N)
     public static void addKidToDatabase(String name, String email_1, String email_2, String remark, CallBack callBack) {
         if(email_1.isEmpty()){
             callBack.fail("Email for parent1 must be filled");
@@ -124,4 +124,4 @@ public class Activity {
         });
 >>>>>>> b81bc5ee7d7d45fbf4bf1a42f8ff37c2434efde6
     }
-}
+}*/
