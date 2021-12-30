@@ -14,17 +14,16 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Vector;
 
 public abstract class User {
     private String UID;
     private String name;
     private String UserType;
-    protected Hashtable<String,String> kids= new Hashtable<>();
+    private Hashtable<String,String> kids= new Hashtable<>();
     protected Inventory inventory;
     protected Attendance attendance;
-    protected Hashtable<String,ArrayList<UserInfo>> info;
-
-
+    protected Hashtable<String, Vector<UserInfo>> info;
     protected DatabaseReference database_ref;
     public User(String UID, String userType, CallBack callBack) {
         database_ref= FirebaseDatabase.getInstance().getReference();
@@ -39,10 +38,13 @@ public abstract class User {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                kids=new Hashtable<>( (HashMap<String,String>) snapshot.getValue());
+//                kids=new Hashtable<>( (HashMap<String,String>) snapshot.getValue());
+//                for (String kid:kids.keySet()){
+//
+//                }
 //                ArrayList<UserInfo> parents=new ArrayList<UserInfo>(td.values());
-//                for (DataSnapshot kid:snapshot.getChildren())
-//                    AddKid(kid.getKey(), kid.getValue().toString());
+                for (DataSnapshot kid:snapshot.getChildren())
+                    addKid(kid.getKey(), kid.getValue().toString());
                 callBack.run();
             }
 
@@ -53,15 +55,16 @@ public abstract class User {
         });
     }
 
-//    public User(String name) {
-//        this.name=name;
-//    }
 
+    public void addKid(String name, String value){
+        kids.put(name,value);
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    public boolean AddKid(String key, String value){
-        return(kids.putIfAbsent(key,value)==null);
     }
+    public boolean contains(String key){
+        return kids.contains(key);
+
+    }
+
 
     public String getKid(String name){
         return kids.get(name);
@@ -78,27 +81,26 @@ public abstract class User {
         return kids;
     }
 
-    public void removeKid(String name) {
-        kids.remove(name);
-    }
+//    public void removeKid(String name) {
+//        kids.remove(name);
+//    }
 
-    public void setInInfo(String name,ArrayList<UserInfo> userinfo) {
-        info.put(name,userinfo);
-    }
+//    public void setInInfo(String name,Vector<UserInfo> userinfo) {
+//        info.put(name,userinfo);
+//    }
 
-    public void setInInventory(String name, KidInventory value) {
-        inventory.addKid(name,value);
-    }
+//    public void setInInventory(String name, KidInventory value) {
+//        inventory.addKid(name,value);
+//    }
 
-    private void steInAttendance(String name, Integer value) {
-        attendance.addKid(name,value);
-    }
+//    private void steInAttendance(String name, Integer value) {
+//        attendance.addKid(name,value);
+//    }
 
 
-    public abstract void setInfo(String name, CallBack callBack);
-    public ArrayList<UserInfo> getInfo(String name){
+    protected abstract void setInfo(String name);
+    public Vector<UserInfo> getInfo(String name){
         return info.get(name);
-//        return info;
     }
 
 

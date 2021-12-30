@@ -17,9 +17,9 @@ public class Inventory {
 //    }
     public Inventory(){}
 
-    public void addKid(String name,KidInventory kidInventory){
-        inventory.put(name,kidInventory);
-    }
+//    public void addKid(String name,KidInventory kidInventory){
+//        inventory.put(name,kidInventory);
+//    }
     public void setInventoryKidListeners(String name,String staffUID){
         FirebaseDatabase.getInstance().getReference().child("Staff").child(staffUID).child("Inventory").child(name).addValueEventListener(new ValueEventListener() {
             @Override

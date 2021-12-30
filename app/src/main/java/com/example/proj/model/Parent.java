@@ -6,7 +6,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
+import java.util.Vector;
 
 public class Parent extends User{
 
@@ -16,18 +16,20 @@ public class Parent extends User{
     }
 
     @Override
-    public boolean AddKid(String key, String value) {
-        return false;
+    public void addKid(String name, String staffUID) {
+        super.addKid(name,staffUID);
+        inventory.setInventoryKidListeners(name,staffUID);
+        attendance.setKidAttendanceListener(name,staffUID);
     }
 
     @Override
-    public void setInfo(String name, CallBack callBack) {
+    protected void setInfo(String name) {
+        Vector<UserInfo> information=new Vector<>();
+        info.put(name,information);
         database_ref.child("Staff").child(getKid(name)).child("Info").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ArrayList<UserInfo> staffinfo=new ArrayList<UserInfo>(1);
-                staffinfo.add(snapshot.getValue(UserInfo.class));
-                info.put(name,staffinfo);
+                information.add(snapshot.getValue(UserInfo.class));
             }
 
             @Override

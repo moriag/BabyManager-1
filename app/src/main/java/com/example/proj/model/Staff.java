@@ -11,6 +11,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Vector;
 
 public class Staff extends User {
 
@@ -27,46 +29,29 @@ public class Staff extends User {
     }
 
     @Override
-    public void setInfo(String name, CallBack callBack) {
+    protected void setInfo(String name) {
+        Vector<UserInfo> parentsInfo= new Vector<>(2);
+        info.put(name,parentsInfo);
         database_ref.child("Staff").child(getUID()).child("Parents").child(name).addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-//                Map<String, UserInfo> td = ;
-                ArrayList<String> parents=new ArrayList<String>(((HashMap<String,String>) snapshot.getValue()).values());
-                database_ref.child("Parent").child(parents.get(0)).child("Info").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        ArrayList<UserInfo> parentinfo= new ArrayList<UserInfo>(2);
-                        parentinfo.add(snapshot.getValue(UserInfo.class));
-                        if(parents.size()==1){
-                            info.put(name,parentinfo);
-                            callBack.run();
-                        }
-                        else {
-                            database_ref.child("Parent").child(parents.get(1)).child("Info").addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    parentinfo.add(snapshot.getValue(UserInfo.class));
-                                    info.put(name, parentinfo);
-                                    callBack.run();
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                }
-                            });
+//                ArrayList<String> parents=new ArrayList<String>(((HashMap<String,String>) snapshot.getValue()).values());
+                for (DataSnapshot parent:snapshot.getChildren()){
+                    database_ref.child("Parent").child(parent.getValue().toString()).child("Info").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            parentsInfo.add(snapshot.getValue(UserInfo.class));
 
                         }
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
 
-                    }
-                });
-//                    ((Staff)Activity.user).addParents(kid.getKey(),parents);
+                        }
+                    });
+                }
 
             }
 
@@ -78,11 +63,11 @@ public class Staff extends User {
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public boolean AddKid(String key, String value){
-        if(super.AddKid(key,value))return false;
-        return true;
+    public void addKid(String name, String remark){
+        super.addKid(name,remark);
+        inventory.setInventoryKidListeners(name,getUID());
+        attendance.setKidAttendanceListener(name,getUID());
     }
 
 //    public void addParents(String key, ArrayList<String> parents) {

@@ -43,7 +43,7 @@ public class Activity {
             callBack.fail("Email for parent1 must be filled");
             return;
         }
-        if (!user.AddKid(name,remark)){
+        if (!user.contains(name)){
             callBack.fail("a child with this name is already added");
             return;
         }
@@ -65,7 +65,6 @@ public class Activity {
 
                         @Override
                         public void fail(String error) {
-                            user.removeKid(name);
                             callBack.fail(error);
                         }
                     });
@@ -80,7 +79,6 @@ public class Activity {
 
             @Override
             public void fail(String error) {
-                user.removeKid(name);
                 callBack.fail(error);
             }
         });
