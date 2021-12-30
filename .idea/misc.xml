@@ -4,14 +4,20 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/User/AndroidStudioProjects/proj/app/src/main/res/layout/activity_add_kid.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/proj/app/src/main/res/layout/activity_kid.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/User/AndroidStudioProjects/proj/app/src/main/res/layout/activity_kids_list.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/User/AndroidStudioProjects/proj/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/User/AndroidStudioProjects/proj/app/src/main/res/layout/activity_main2.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/User/AndroidStudioProjects/proj/app/src/main/res/layout/activity_open_group.xml" value="0.315625" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/proj/app/src/main/res/layout/activity_parent.xml" value="0.33" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/proj/app/src/main/res/layout/activity_parent.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/proj/app/src/main/res/layout/activity_staff.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/proj/app/src/main/res/layout/item.xml" value="0.33" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/proj/app/src/main/res/layout/fragment_info.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/proj/app/src/main/res/layout/fragment_mainn.xml" value="0.4419047619047619" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/proj/app/src/main/res/layout/fragment_request.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/proj/app/src/main/res/layout/item.xml" value="0.5" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/proj/app/src/main/res/layout/kid_activity.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/User/AndroidStudioProjects/proj/app/src/main/res/layout/kid_item.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/proj/app/src/main/res/menu/button_menu.xml" value="0.67" />
       </map>
     </option>
   </component>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/request"
+        android:title="בקשה לשינוי סטטוס"
+        android:icon="@drawable/ic_baseline_compare_arrows_24"
+        android:actionLayout="@android:layout/activity_list_item"
+        />
+    <item
+        android:id="@+id/info2"
+        android:title="פרטי צוות"
+        android:icon="@drawable/ic_baseline_info_24"
+        />
+
+    <item
+        android:id="@+id/mainn"
+        android:icon="@drawable/ic_baseline_notes_24"
+        android:title="תמונה כללית"
+        />
+</menu>

@@ -4,14 +4,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.telecom.Call;
 import android.view.View;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.proj.model.DataHandler;
-import com.example.proj.model.KidInfo;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +41,9 @@ public class ParentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_parent);
         db = FirebaseAuth.getInstance();
 
+        BottomNavigationView bnv = findViewById(R.id.bottomNavigationView);
+        NavController nc = Navigation.findNavController(findViewById(R.id.mainn));
+
         rv = findViewById(R.id.kid_list1);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this));
@@ -45,10 +58,10 @@ public class ParentActivity extends AppCompatActivity {
     public void show() {
 
 
-//        List<String> kids = getKids();
-//        for(String name : kids)
+        List<String> kids = getKids();
+        for(String name : kids)
         {
-//            list.add(new KidInfo(name, DataHandler.getInventory(name), DataHandler.getAttendance(name)));
+            list.add(new KidInfo(name, DataHandler.getInventory(name), DataHandler.getAttendance(name)));
         }
         adapter.notifyDataSetChanged();
 
