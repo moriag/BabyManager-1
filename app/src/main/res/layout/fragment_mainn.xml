@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mainn">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/button13"
+            android:layout_width="396dp"
+            android:layout_height="43dp"
+            android:layout_marginTop="40dp"
+            android:backgroundTint="#F4427F"
+            android:text="מגבונים"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button14" />
+
+        <Button
+            android:id="@+id/button14"
+            android:layout_width="400dp"
+            android:layout_height="43dp"
+            android:layout_marginTop="32dp"
+            android:backgroundTint="#F4427F"
+            android:text="טיטולים"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button12" />
+
+        <Button
+            android:id="@+id/button15"
+            android:layout_width="401dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="40dp"
+            android:backgroundTint="#F4427F"
+            android:text="אוכל"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button13" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="271dp"
+            android:layout_height="33dp"
+            android:backgroundTint="@color/purple_200"
+            android:text="שם של ילד"
+            android:textSize="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.927"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.024" />
+
+        <Button
+            android:id="@+id/button12"
+            android:layout_width="397dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="92dp"
+            android:background="#13A8EC"
+            android:backgroundTint="@color/purple_200"
+            android:text="נוכח / לא נוכח"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+        <Button
+            android:id="@+id/button16"
+            android:layout_width="394dp"
+            android:layout_height="43dp"
+            android:layout_marginTop="68dp"
+            android:backgroundTint="#F4427F"
+            android:text="בגדים"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/button15"
+            app:layout_constraintVertical_bias="0.067" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="241dp"
+            android:layout_height="46dp"
+            android:text="חוסרים"
+            android:textSize="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.106" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

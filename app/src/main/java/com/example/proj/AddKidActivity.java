@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+//<<<<<<< HEAD
 package com.example.proj;
 
 import androidx.annotation.NonNull;

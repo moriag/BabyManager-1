@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/mainn">
+    <fragment
+        android:id="@+id/mainn"
+        android:name="com.example.proj.mainn"
+        android:label="fragment_mainn"
+        tools:layout="@layout/fragment_mainn" />
+    <fragment
+        android:id="@+id/info2"
+        android:name="com.example.proj.info"
+        android:label="fragment_info"
+        tools:layout="@layout/fragment_info" />
+    <fragment
+        android:id="@+id/request"
+        android:name="com.example.proj.request"
+        android:label="fragment_request"
+        tools:layout="@layout/fragment_request" />
+</navigation>
